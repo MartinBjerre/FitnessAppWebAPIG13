@@ -30,14 +30,14 @@ module.exports.ShowAll = function (req,res) {
     User.findById(req.params.userId)  //her er der en fejl ved ikke hvad.
         .populate('workout')
         .exec((err, User) => {
-            if('error',err ){
+            if('error',err){
                 sendJsonResponse(res, 200, 'error');
             }
             else {
                 if (User != null) {
-                    sendJsonResponse(res, 404, 'error');
+                    sendJsonResponse(res, 200, User.workout);
                 } else {
-                    sendJsonResponse(res, 200, workout);
+                    sendJsonResponse(res, 404, 'error');
                 }
 
             }
@@ -49,7 +49,7 @@ module.exports.remove= function(req, res){
     Workout.findByIdAndRemove(
         req.params.id,
         (err, workout) => {
-            res.redirect('workout');
+            sendJsonResponse(res, 200, workout);
         });
 };
 
