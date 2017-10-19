@@ -35,7 +35,7 @@ module.exports.GetByWorkoutId = function(req, res) {
             if (err){
                 sendJsonResponse(res,404,{"error" :"Exercise not found"});
             } else {
-                sendJsonResponse(res, 200, Workout);
+                sendJsonResponse(res, 200, Workout.exercise);
             }
         });
 };
