@@ -7,6 +7,6 @@
     "\\app_api\\routes",
     "\\app_server"
   ],
-  "SelectedNode": "\\app_api\\modules\\db.js",
+  "SelectedNode": "\\app_api\\controllers\\workout.js",
   "PreviewInSolutionExplorer": false
 }
