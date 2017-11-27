@@ -5,7 +5,7 @@ const exercise = require('../controllers/exercise');
 const user = require('../controllers/user');
 
 
-router.get('/', user.ShowAllUser );
+router.get('/user', user.ShowAllUser );
 router.post('/user/CreateUser', user.CreateUser);
 router.get('/user/:userId/workout', workout.ShowAll);
 router.post('/user/:userId/workout/CreateWorkout', workout.CreateWorkout);

@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 var Schema =   mongoose.Schema;
 
 const workoutSH = Schema({
-   name: {
+   WorkoutName: {
        type: String
    },
-   description:{
+    WorkoutDescription:{
        type: String
    },
     exercise: [{ type: Schema.Types.ObjectId, ref: 'exercise'

@@ -2,10 +2,24 @@ const mongoose = require('mongoose');
 const Workout = mongoose.model('workout');
 const User = mongoose.model('user');
 
+const _buildWorkout = function(req, res, results) {
+    let workout = [];
+    results.forEach((doc) => {
+        workout.push({
+            _id: doc._id,
+            WorkoutName: doc.WorkoutName,
+            WorkoutDescription: doc.WorkoutDescription,
+            workout: doc.exercise
+        });
+    });
+    return workout;
+};
+
 module.exports.CreateWorkout = function (req,res) {
+    let workouts = [];
     Workout.create({
-            name: req.body.WName,
-            description: req.body.WDescription },
+            WorkoutName: req.body.WorkoutName,
+            WorkoutDescription: req.body.WorkoutDescription },
         (err, workout) => {
             if (err){
                 res.render('error');
@@ -19,6 +33,8 @@ module.exports.CreateWorkout = function (req,res) {
                             sendJsonResponse(res, 404, 'error');
                         }
                         else {
+                            workouts = _buildWorkout(req, res, User.workout);
+                            console.log(workouts);
                             sendJsonResponse(res, 200, workout);
                         }
                     });
@@ -27,7 +43,8 @@ module.exports.CreateWorkout = function (req,res) {
 };
 
 module.exports.ShowAll = function (req,res) {
-    User.findById(req.params.userId)  //her er der en fejl ved ikke hvad.
+    let workout = [];
+    User.findById(req.params.userId)
         .populate('workout')
         .exec((err, User) => {
             if('error',err){
@@ -35,7 +52,8 @@ module.exports.ShowAll = function (req,res) {
             }
             else {
                 if (User != null) {
-                    sendJsonResponse(res, 200, User.workout);
+                    workout = _buildWorkout(req, res, User.workout);
+                    sendJsonResponse(res, 200, workout);
                 } else {
                     sendJsonResponse(res, 404, 'error');
                 }
